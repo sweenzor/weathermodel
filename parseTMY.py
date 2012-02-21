@@ -10,6 +10,6 @@ for line in fid.readlines():
     data.append(line.split(','))
 
 print len(data)
-print data[1]
+print data[1:4]
 
 fid.close()
