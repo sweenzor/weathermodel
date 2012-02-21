@@ -3,7 +3,17 @@
 import requests
 import json
 import datetime
-from numpy import array
+from numpy import array, zeros
+
+def jsondate(date_dict):
+
+    yr = int(date_dict['year'])
+    mn = int(date_dict['mon'])
+    dy = int(date_dict['mday'])
+    hr = int(date_dict['hour'])
+
+    return datetime.datetime(yr,mn,dy,hr)
+
 
 api_key = 'fae7d20f3531b884'
 date = '20101018'
@@ -12,13 +22,9 @@ r = requests.get(url)
 
 entry = json.loads(r.content)
 
+x = zeros(25, dtype=[('datetime', '|O8'), ('dewptm', '<f8')])
 
-x = array([], dtype=[('datetime', '|O8'), ('dewptm', '<i8')])
+for index, day in enumerate(entry['history']['observations']):
+    x[index] = (jsondate(day['date']), float(day['dewptm']))
 
-
-for day in entry['history']['observations']:
-	print day['date']['hour']
-	print day['dewptm']
-
-
-#print json.dumps(entry['history']['observations'], sort_keys=True, indent=4)
+print x
