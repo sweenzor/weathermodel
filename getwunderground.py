@@ -1,13 +1,24 @@
 #!/usr/bin/env python
 
 import requests
+import json
+import datetime
+from numpy import array
 
 api_key = 'fae7d20f3531b884'
-loc = 'CA/San_Francisco.json'
-url = 'http://api.wunderground.com/api/%s/hourly10day/q/%s' % (api_key,loc)
-
-url = 'http://api.wunderground.com/api/%s/history_20101018/q/SFO.json' % api_key
-
+date = '20101018'
+url = 'http://api.wunderground.com/api/%s/history_%s/q/SFO.json' % (api_key, date)
 r = requests.get(url)
 
-print r.content
+entry = json.loads(r.content)
+
+
+x = array([], dtype=[('datetime', '|O8'), ('dewptm', '<i8')])
+
+
+for day in entry['history']['observations']:
+	print day['date']['hour']
+	print day['dewptm']
+
+
+#print json.dumps(entry['history']['observations'], sort_keys=True, indent=4)
