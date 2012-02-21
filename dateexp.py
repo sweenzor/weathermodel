@@ -8,16 +8,20 @@ import matplotlib.pyplot as plt
 import matplotlib.mlab as mlab
 import matplotlib.cbook as cbook
 
-datafile = cbook.get_sample_data('aapl.csv', asfileobj=False)
+#datafile = cbook.get_sample_data('aapl.csv', asfileobj=False)
+datafile = '/Users/matt/Development/weathermodel/724940TY.csv'
 print 'loading', datafile
-r = mlab.csv2rec(datafile)
+r = mlab.csv2rec(datafile, skiprows=1)
 
 r.sort()
-r = r[-30:]  # get the last 30 days
+r = r[-300:]
+
+print r.dtype.names
 
 fig = plt.figure()
 ax = fig.add_subplot(111)
-ax.plot(r.date, r.adj_close, 'o-')
+ax.plot(r.date_mmddyyyy, r.dewpoint_c, 'o-')
+#ax.plot(r.date, r.open, 'o-')
 fig.autofmt_xdate()
 
 
