@@ -13,6 +13,12 @@ datafile = os.getcwd()+'/724940TY.csv'
 print 'loading', datafile
 r2 = mlab.csv2rec(datafile, skiprows=1)
 
+for r in r2:
+	print r
+
+quit()
+
+
 r1.sort()
 r1 = r1[-300:]
 
