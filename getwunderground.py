@@ -5,6 +5,8 @@ import json
 import datetime
 import time
 from numpy import array, zeros, concatenate
+from matplotlib import mlab
+
 
 def jsondate(date_dict):
     """transform json date into datetime"""
@@ -51,4 +53,10 @@ def getrange(date, num):
         daily_arrays.append(fetchday(string_date))
         date += datetime.timedelta(1)
 
-    return concatenate(daily_arrays, axis=1)
+    full_range = concatenate(daily_arrays, axis=1)
+    
+    filename = string_date+'+'+str(num)+'.csv'
+    mlab.rec2csv(full_range, filename)
+    print 'saved as ', filename
+
+    return full_range
