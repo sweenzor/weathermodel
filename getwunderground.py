@@ -28,7 +28,7 @@ def fetchday(date):
     r = requests.get(url)
     entry = json.loads(r.content)
     print 'fetched ', date
-    
+
     # rate limit
     print 'sleeping..'
     time.sleep(10)
@@ -36,10 +36,25 @@ def fetchday(date):
     # find out how many observations occured (not always 24)
     num_of_entries = len(entry['history']['observations'])
 
-    x = zeros(num_of_entries, dtype=[('datetime', '|O8'), ('dewptm', '<f8')])
+    types = [('datetime', '|O8'),
+            ('dewptm', '<f8'),
+            ('hum', '<f8'),
+            ('precipm', '<f8'),
+            ('pressurem', '<f8'),
+            ('rain', '<f8'),
+            ('tempm', '<f8'),
+            ('vism', '<f8'),
+            ('wgustm', '<f8'),
+            ('wspdm', '<f8')]
+
+    x = zeros(num_of_entries, dtype=types)
 
     for index, day in enumerate(entry['history']['observations']):
-        x[index] = (jsondate(day['date']), float(day['dewptm']))
+
+        # eww, use the types 'keys' to load the rows
+        row = [jsondate(day['date'])]
+        row += [float(day[key[0]]) for key in types[1:]]
+        x[index] = tuple(row)
 
     return x
 
