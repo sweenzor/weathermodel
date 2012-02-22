@@ -13,7 +13,7 @@ fig = plt.figure()
 ax1 = fig.add_subplot(111)
 
 #ax1.plot(r1.date_mmddyyyy, r1.dewpoint_c, 'o-')
-ax1.plot(r1.date_mmddyyyy, pandas.stats.moments.ewma(r1.dewpoint_c,span=100), 'o-')
+ax1.plot(r1.date_mmddyyyy, pandas.stats.moments.ewma(r1.dewpoint_c,span=24*14), 'o-')
 ax1.plot(r2['datetime'], r2['dewptm'], 'o-')
 
 #ax2 = fig.add_subplot(212)
