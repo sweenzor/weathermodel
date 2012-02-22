@@ -4,6 +4,7 @@ import requests
 import json
 import datetime
 import time
+import os
 from numpy import array, zeros, concatenate
 from matplotlib import mlab
 
@@ -75,3 +76,11 @@ def getrange(date, num):
     print 'saved as ', filename
 
     return full_range
+
+def load():
+
+    datafile = os.getcwd()+'/20111231+365.csv'
+    print 'loading', datafile
+    record = mlab.csv2rec(datafile)
+
+    return record

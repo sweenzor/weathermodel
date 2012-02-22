@@ -7,7 +7,7 @@ import parsetmy
 import getwunderground
 
 r1 = parsetmy.load()
-r2 = getwunderground.getrange(datetime.datetime(2011,1,1), 365)
+r2 = getwunderground.load()
 
 fig = plt.figure()
 
