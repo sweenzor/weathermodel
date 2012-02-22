@@ -52,5 +52,3 @@ def getrange(date, num):
         date += datetime.timedelta(1)
 
     return concatenate(daily_arrays, axis=1)
-
-print getrange(datetime.datetime(2011,8,5), 5)

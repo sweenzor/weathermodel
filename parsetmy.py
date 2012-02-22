@@ -32,6 +32,6 @@ def load():
     print 'loading', datafile
     record = mlab.csv2rec(datafile, skiprows=1)
     fixdatetime(record)
-    setyear(2004,record)
+    setyear(2011,record)
 
     return record
